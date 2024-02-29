@@ -151,7 +151,21 @@ def tour_data(request):
     return render(request, 'core/getrecommendation.html')
 
 
-def collaborativerecommend(self, user_id, num_recommendations):
-        content_based_scores = {item_id: np.random.rand() for item_id in self.item_features.keys()}
-        return content_based_scores
-        
+def recommendation_view(request):
+    # Assuming 'item_id' is passed as a parameter in the request or retrieved from the database
+    item_id = request.GET.get('item_id')  # Adjust this according to your application logic
+
+    # Initialize the hybrid recommendation system with your models
+    hybrid_system = HybridRecommendationSystem(content_based_model, collaborative_filtering_model)
+
+    # Get recommendations for the specified item
+    num_recommendations = 10  # Adjust as needed
+    recommendations = hybrid_system.recommend(item_id, num_recommendations)
+
+    # Pass the recommendations to the template context
+    context = {
+        'recommendations': recommendations,
+    }
+
+    # Render the template with recommendations
+    return render(request, 'recommendation_template.html', context)

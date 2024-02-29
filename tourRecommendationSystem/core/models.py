@@ -94,3 +94,15 @@ class TourImages(models.Model):
     class Meta:
         verbose_name_plural = "Tour Images" 
 
+
+class TourRecommendation(models.Model):
+    id = models.IntegerField(primary_key=True)
+    total_review = models.IntegerField()
+    review = models.TextField()
+    location = models.CharField(max_length=100)
+    image1 = models.ImageField(upload_to='images/')
+    image2 = models.ImageField(upload_to='images/')
+
+    class Meta:
+        verbose_name_plural = "Tour Recommendations"
+        
