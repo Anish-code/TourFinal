@@ -1,0 +1,720 @@
+{% extends "partials/base.html" %} {% load static %} {% block content %}
+<section class="header-area">
+  <div id="home" class="header_slider">
+    <div class="single_slider bg_cover d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-8">
+            <div class="slider_content">
+              <h2
+                class="slider_title wow fadeInLeftBig"
+                data-wow-duration="1.3s"
+                data-wow-delay="0.2s"
+              >
+                Explore The Tours with<span> Yatra</span>
+              </h2>
+              <p
+                class="wow fadeInLeftBig"
+                data-wow-duration="1.3s"
+                data-wow-delay="0.5s"
+              >
+                Get Highly Recommendated Tour Plans from the Experts.
+              </p>
+              <button class="main-btn" onclick="button ">
+                Get Recommendation
+              </button>
+            </div>
+            <!-- slider content -->
+          </div>
+        </div>
+        <!-- row -->
+      </div>
+      <!-- container -->
+    </div>
+    <!-- single slider -->
+  </div>
+  <!-- header slider -->
+</section>
+
+<!-- About section -->
+
+<section id="about" class="about_area pt-130 pb-130">
+  <div class="about_wrapper">
+    <div
+      class="about_image bg_cover"
+      style="background-image: url(assets/images/pokhara.jpg)"
+    ></div>
+    <!-- about image -->
+    <div class="container">
+      <div class="row justify-content-end">
+        <div class="col-lg-6">
+          <div class="about_content">
+            <div class="section_title">
+              <h1 class="title">
+                About Us <br />
+                Yatri as a <span>Teams</span>
+              </h1>
+              <br />
+              <p>
+                Welcome to Yatra, a community of passionate travelers dedicated
+                to helping you discover your perfect destination. With a deep
+                love for exploration and a commitment to creating unforgettable
+                journeys, we are your go-to guides for all things travel.
+              </p>
+              <br />
+              <h3>Our Mission:</h3>
+              <br />
+              <p>
+                At Yatris, our mission is to turn your wanderlust into reality.
+                We understand that with the plethora of options available,
+                choosing the ideal destination can be overwhelming. That's where
+                we step in—to curate personalized travel experiences based on
+                your interests, budgets, and available time.
+              </p>
+              <br />
+              <p>
+                Embark on a journey with Yatris, where every step is a
+                discovery, and every destination is a story waiting to be told.
+                Let us be your companions in the world of travel, guiding you
+                towards experiences that will leave you with a lifetime of
+                cherished memories.
+              </p>
+            </div>
+            <!-- section title -->
+            <a href="javascript:void(0)" class="main-btn">Read More</a>
+          </div>
+          <!-- about content -->
+        </div>
+      </div>
+      <!-- row -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- about wrapper -->
+</section>
+<!-- End of about Section -->
+
+<!-- Explore section -->
+<section id="packges" class="explore_area pt-130 pb-130">
+  <div class="section_title text-center pb-25">
+    <h1 class="title">Explore Different Destinations</h1>
+    <p>
+      We offer a variety of destinations. Whether you've spent some summers
+      together or this might be your first adventure, we've got the perfect
+      vacation for you.
+    </p>
+  </div>
+  <!-- section title -->
+  <div class="row">
+    <div class="col-lg-4 col-md-6">
+      <div
+        class="single_explore mt-30 wow fadeIn"
+        data-wow-duration="1.3s"
+        data-wow-delay="0.8s"
+        style="
+          visibility: visible;
+          animation-duration: 1.3s;
+          animation-delay: 0.8s;
+          animation-name: fadeIn;
+        "
+      >
+        <div class="explore_image">
+          <img src="{% static 'assets/images/chitwan.jpg' %}" alt="Chitwan" />
+        </div>
+        <div class="explore_content">
+          <a class="main-btn">Read more</a>
+          <h4 class="title"><a>Chitwan</a></h4>
+          <p class="price">Best for wildlife safari, one horn rihno</p>
+          <a class="more"><i class="lni lni-chevron-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+      <div
+        class="single_explore mt-30 wow fadeIn"
+        data-wow-duration="1.3s"
+        data-wow-delay="0.8s"
+        style="
+          visibility: visible;
+          animation-duration: 1.3s;
+          animation-delay: 0.8s;
+          animation-name: fadeIn;
+        "
+      >
+        <div class="explore_image">
+          <img src="{% static 'assets/images/chitwan.jpg' %}" alt="Chitwan" />
+        </div>
+        <div class="explore_content">
+          <a class="main-btn">Book Now</a>
+          <h4 class="title"><a>Chitwan</a></h4>
+          <p class="price">From Rs 6999</p>
+          <a class="more"><i class="lni lni-chevron-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+      <div
+        class="single_explore mt-30 wow fadeIn"
+        data-wow-duration="1.3s"
+        data-wow-delay="0.8s"
+        style="
+          visibility: visible;
+          animation-duration: 1.3s;
+          animation-delay: 0.8s;
+          animation-name: fadeIn;
+        "
+      >
+        <div class="explore_image">
+          <img src="{% static 'assets/images/chitwan.jpg' %}" alt="Chitwan" />
+        </div>
+        <div class="explore_content">
+          <a class="main-btn">Book Now</a>
+          <h4 class="title"><a>Chitwan</a></h4>
+          <p class="price">From Rs 6999</p>
+          <a class="more"><i class="lni lni-chevron-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+      <div
+        class="single_explore mt-30 wow fadeIn"
+        data-wow-duration="1.3s"
+        data-wow-delay="0.8s"
+        style="
+          visibility: visible;
+          animation-duration: 1.3s;
+          animation-delay: 0.8s;
+          animation-name: fadeIn;
+        "
+      >
+        <div class="explore_image">
+          <img src="{% static 'assets/images/chitwan.jpg' %}" alt="Chitwan" />
+        </div>
+        <div class="explore_content">
+          <a class="main-btn">Book Now</a>
+          <h4 class="title"><a>Chitwan</a></h4>
+          <p class="price">From Rs 6999</p>
+          <a class="more"><i class="lni lni-chevron-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+      <div
+        class="single_explore mt-30 wow fadeIn"
+        data-wow-duration="1.3s"
+        data-wow-delay="0.8s"
+        style="
+          visibility: visible;
+          animation-duration: 1.3s;
+          animation-delay: 0.8s;
+          animation-name: fadeIn;
+        "
+      >
+        <div class="explore_image">
+          <img src="{% static 'assets/images/chitwan.jpg' %}" alt="Chitwan" />
+        </div>
+        <div class="explore_content">
+          <a class="main-btn">Book Now</a>
+          <h4 class="title"><a>Chitwan</a></h4>
+          <p class="price">From Rs 6999</p>
+          <a class="more"><i class="lni lni-chevron-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+      <div
+        class="single_explore mt-30 wow fadeIn"
+        data-wow-duration="1.3s"
+        data-wow-delay="0.8s"
+        style="
+          visibility: visible;
+          animation-duration: 1.3s;
+          animation-delay: 0.8s;
+          animation-name: fadeIn;
+        "
+      >
+        <div class="explore_image">
+          <img src="{% static 'assets/images/chitwan.jpg' %}" alt="Chitwan" />
+        </div>
+        <div class="explore_content">
+          <a class="main-btn">Book Now</a>
+          <h4 class="title"><a>Chitwan</a></h4>
+          <p class="price">From Rs 6999</p>
+          <a class="more"><i class="lni lni-chevron-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Explore section ends -->
+
+<!-- Service Section -->
+
+<section id="services" class="services_area pt-120">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="section_title text-center pb-25">
+          <h3 class="title">Services We Provide</h3>
+          <br />
+          <p>
+            we offer personalized travel suggestions, plan itineraries, and
+            provide real-time information on accommodations, attractions, and
+            activities, tailoring the travel experience to your preferences.
+          </p>
+        </div>
+        <!-- section title -->
+      </div>
+    </div>
+    <!-- row -->
+    <div class="row">
+      <div class="col-lg-3 col-sm-6">
+        <div
+          class="single_service mt-30 text-center wow fadeInUpBig"
+          data-wow-duration="1.3s"
+          data-wow-delay="0.2s"
+        >
+          <div class="services_icon">
+            <i class="lni lni-apartment"></i>
+          </div>
+          <div class="services_content">
+            <h4 class="title">Nearby Hotels</h4>
+            <p>Get the information about the hotels near the destinations.</p>
+          </div>
+        </div>
+        <!-- single service -->
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div
+          class="single_service mt-30 text-center wow fadeInUpBig"
+          data-wow-duration="1.3s"
+          data-wow-delay="0.4s"
+        >
+          <div class="services_icon">
+            <i class="fa-solid fa-map-location-dot"></i>
+          </div>
+          <div class="services_content">
+            <h4 class="title">Guide Map</h4>
+            <p>Get the proper directions to reach the destination.</p>
+          </div>
+        </div>
+        <!-- single service -->
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div
+          class="single_service mt-30 text-center wow fadeInUpBig"
+          data-wow-duration="1.3s"
+          data-wow-delay="0.6s"
+        >
+          <div class="services_icon">
+            <i class="fa-regular fa-calendar-days"></i>
+          </div>
+          <div class="services_content">
+            <h4 class="title">Planner</h4>
+            <p>Get the perfect plan to travel the destination.</p>
+          </div>
+        </div>
+        <!-- single service -->
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div
+          class="single_service mt-30 text-center wow fadeInUpBig"
+          data-wow-duration="1.3s"
+          data-wow-delay="0.8s"
+        >
+          <div class="services_icon">
+            <i class="fa-solid fa-people-group"></i>
+          </div>
+          <div class="services_content">
+            <h4 class="title">Community Reach</h4>
+            <p>
+              Connection between more people with similar interest and get more
+              discussion on travel information.
+            </p>
+          </div>
+        </div>
+        <!-- single service -->
+      </div>
+    </div>
+    <!-- row -->
+  </div>
+  <!-- container -->
+</section>
+
+<!-- service section ends -->
+
+<!-- Gallery section start -->
+<section id="gallery" class="gallery_area pt-120 pb-130">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="section_title text-center pb-25">
+          <h3 class="title">Trip Gallary</h3>
+          <p>
+            Some Memories that were been captured with full of happiness and
+            joyful. Travellers feeling delightful after reaching their expected
+            destinations.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-5">
+        <div class="single_gallery mt-30">
+          <img src="{% static 'assets/images/galary1.webp' %}" alt="gallery" />
+          <a class="image-popup" href="assets/images/galary1.webp"
+            ><i class="lni lni-plus"></i
+          ></a>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="single_gallery mt-30">
+              <img
+                src="{% static 'assets/images/gallary2.webp' %}"
+                alt="gallery"
+              />
+              <a class="image-popup" href="assets/images/gallary2.webp"
+                ><i class="lni lni-plus"></i
+              ></a>
+            </div>
+            <div class="single_gallery mt-30">
+              <img
+                src="{% static 'assets/images/galary3.webp' %}"
+                alt="gallery"
+              />
+              <a class="image-popup" href="assets/images/galary3.webp"
+                ><i class="lni lni-plus"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="single_gallery mt-30">
+              <img
+                src="{% static 'assets/images/gallery4.jpg' %}"
+                alt="gallery"
+              />
+              <a class="image-popup" href="assets/images/gallery4.jpg"
+                ><i class="lni lni-plus"></i
+              ></a>
+            </div>
+            <div class="single_gallery mt-30">
+              <img
+                src="{% static 'assets/images/gallery5.jpg' %}"
+                alt="gallery"
+              />
+              <a class="image-popup" href="assets/images/gallery5.jpg"
+                ><i class="lni lni-plus"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery section ends -->
+
+<!-- team section -->
+
+<section id="team" class="team_area pt-120 pb-130">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="section_title text-center pb-25">
+          <h3 class="title">Meet The Team</h3>
+          <p>
+            Strongest Team can achieve anything more than being alone. A team of
+            Yatra for reaching out to the travellers. Contributors for this
+            platform.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-sm-6">
+        <div
+          class="single_team mt-30 wow fadeIn"
+          data-wow-duration="1.3s"
+          data-wow-delay="0.2s"
+          style="
+            visibility: visible;
+            animation-duration: 1.3s;
+            animation-delay: 0.2s;
+            animation-name: fadeIn;
+          "
+        >
+          <div class="team_image">
+            <img src="{% static 'assets/images/gulshan.jpg' %}" alt="team" />
+          </div>
+          <div class="team_content">
+            <h5 class="team_name">Gulshan Kr. Mahaseth</h5>
+            <p>Co-Founder</p>
+            <ul class="social">
+              <li>
+                <a href="javascript:void(0)"
+                  ><i class="lni lni-facebook-original"></i
+                ></a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"
+                  ><i class="lni lni-twitter-original"></i
+                ></a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"
+                  ><i class="lni lni-instagram-original"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-6">
+        <div
+          class="single_team mt-30 wow fadeIn"
+          data-wow-duration="1.3s"
+          data-wow-delay="0.4s"
+          style="
+            visibility: visible;
+            animation-duration: 1.3s;
+            animation-delay: 0.4s;
+            animation-name: fadeIn;
+          "
+        >
+          <div class="team_image">
+            <img src="{% static 'assets/images/anish.jpg' %}" alt="team" />
+          </div>
+          <div class="team_content">
+            <h5 class="team_name">Anish Maharjan</h5>
+            <p>Co-Founder</p>
+            <ul class="social">
+              <li>
+                <a href="javascript:void(0)"
+                  ><i class="lni lni-facebook-original"></i
+                ></a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"
+                  ><i class="lni lni-twitter-original"></i
+                ></a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"
+                  ><i class="lni lni-instagram-original"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-6">
+        <div
+          class="single_team mt-30 wow fadeIn"
+          data-wow-duration="1.3s"
+          data-wow-delay="0.6s"
+          style="
+            visibility: visible;
+            animation-duration: 1.3s;
+            animation-delay: 0.6s;
+            animation-name: fadeIn;
+          "
+        >
+          <div class="team_image">
+            <img src="{% static 'assets/images/prachanda.jpg' %}" alt="team" />
+          </div>
+          <div class="team_content">
+            <h5 class="team_name">Prachanda Oli</h5>
+            <p>Co-Founder</p>
+            <ul class="social">
+              <li>
+                <a href="javascript:void(0)"
+                  ><i class="lni lni-facebook-original"></i
+                ></a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"
+                  ><i class="lni lni-twitter-original"></i
+                ></a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"
+                  ><i class="lni lni-instagram-original"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- team section ends -->
+
+<!-- Blog Section  -->
+<section id="blog" class="blog_area pt-120 pb-130">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="section_title text-center pb-25">
+          <h3 class="title">Recent Blog Post</h3>
+          <p>
+            Read the exciting bolgs of yatris sharing their experience and
+            information about their yatras.
+          </p>
+        </div>
+        <!-- section title -->
+      </div>
+    </div>
+    <!-- row -->
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="single_blog mt-30">
+          <div class="blog_image">
+            <img src="{% static 'assets/images/blog-1.jpg' %}" alt="blog" />
+          </div>
+          <div class="blog_content">
+            <div class="blog_meta">
+              <ul>
+                <li>
+                  Posted by: <a href="javascript:void(0)">Michle Smith</a>
+                </li>
+                <li>14 June 2023</li>
+              </ul>
+            </div>
+            <h4 class="blog_title">
+              <a href="javascript:void(0)"
+                >A Gerat Wonderful place to Trekking in the World</a
+              >
+            </h4>
+            <p>
+              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+              nonumy eirmod tempor invidunt ut labore et dolore magn aaliq yam
+              erat, sed diam voluptua. At vero eos et accusam et justo dolores
+              ea rebum Stet clita kasd gubergren sea.
+            </p>
+          </div>
+        </div>
+        <!-- single blog -->
+      </div>
+      <div class="col-lg-6">
+        <div class="single_blog d-sm-flex mt-30">
+          <div class="blog_image">
+            <img src="{% static 'assets/images/blog-2.jpg' %}" alt="blog" />
+          </div>
+          <div class="blog_content blog_content_2 media-body">
+            <h4 class="blog_title">
+              <a href="javascript:void(0)"
+                >Heaven is the myth, Nepal is a real
+              </a>
+            </h4>
+            <p>
+              Lorem ipsum dolor sit ametcon setetur sadipscing elitr, sed diam
+              nonumy eirmod tempor
+            </p>
+            <a href="javascript:void(0)" class="more">Read More</a>
+          </div>
+        </div>
+        <!-- single blog -->
+
+        <div class="single_blog d-sm-flex mt-30">
+          <div class="blog_image">
+            <img src="{% static 'assets/images/pokhara.jfif' %}" alt="blog" />
+          </div>
+          <div class="blog_content blog_content_2 media-body">
+            <h4 class="blog_title">
+              <a href="javascript:void(0)">Lakeside of Fewa Lake</a>
+            </h4>
+            <p>
+              Lorem ipsum dolor sit ametcon setetur sadipscing elitr, sed diam
+              nonumy eirmod tempor
+            </p>
+            <a href="javascript:void(0)" class="more">Read More</a>
+          </div>
+        </div>
+        <!-- single blog -->
+      </div>
+    </div>
+    <!-- row -->
+  </div>
+  <!-- container -->
+</section>
+
+<!-- Blog section ends -->
+
+<!-- Contact Section -->
+
+<section id="contact" class="contact_area pt-120 pb-130">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="section_title text-center pb-25">
+          <h3 class="title">Get in Touch</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed dianum
+            eirmod tempor invidunt ut labore et dolore magna
+          </p>
+        </div>
+        <!-- section title -->
+      </div>
+    </div>
+    <!-- row -->
+    <div class="contact_form">
+      <form action="assets/contact.php" method="POST" id="contact-form">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="single_form">
+              <input type="text" name="name" id="name" placeholder="Name" />
+            </div>
+            <!-- single form -->
+          </div>
+          <div class="col-lg-6">
+            <div class="single_form">
+              <input type="text" name="phone" id="phone" placeholder="Phone" />
+            </div>
+            <!-- single form -->
+          </div>
+          <div class="col-lg-12">
+            <div class="single_form">
+              <input type="email" name="email" id="email" placeholder="Email" />
+            </div>
+            <!-- single form -->
+          </div>
+
+          <div class="col-lg-12">
+            <div class="single_form">
+              <textarea
+                name="message"
+                id="message"
+                placeholder="Message"
+              ></textarea>
+            </div>
+            <!-- single form -->
+          </div>
+          <div class="col-lg-12">
+            <div class="single_form">
+              <button type="submit" class="main-btn">Send Message</button>
+            </div>
+            <!-- single form -->
+          </div>
+        </div>
+        <!-- row -->
+        <p class="form-message pt-30"></p>
+      </form>
+    </div>
+    <!-- row -->
+  </div>
+  <!-- container -->
+</section>
+<!-- Contact section ends -->
+
+{% endblock content %}

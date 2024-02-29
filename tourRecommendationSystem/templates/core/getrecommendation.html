@@ -1,0 +1,93 @@
+{% extends "partials/base.html" %} {% load static %} {% block content %}
+
+<div
+  class="testbox"
+  style="
+    margin-top: 80px;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    padding-left: 286px;
+    margin-bottom: 20px;
+  "
+>
+  <form action="/" method="POST">
+    {% csrf_token %}
+    <h3 style="color: burlywood">Some Questions that may help to recommend</h3>
+    <div>
+      <h4 style="margin-top: 10px">Which Type of trip do you want?</h4>
+      <div class="question-answer" style="margin: 10px">
+        <label style="padding: 15px">
+          <input type="radio" value="moderate" name="trip_type" />
+          Moderate
+        </label>
+        <label style="padding: 15px">
+          <input type="radio" value="demanding" name="trip_type" />
+          Demanding
+        </label>
+        <label style="padding: 15px">
+          <input type="radio" value="easy" name="trip_type" />
+          Easy
+        </label>
+        <label style="padding: 15px">
+          <input type="radio" value="strenous" name="trip_type" />
+          Strenous
+        </label>
+        <label style="padding: 15px">
+          <input type="radio" value="random" name="trip_type" />
+          Random
+        </label>
+      </div>
+    </div>
+    <div>
+      <h4>How many days can you spend</h4>
+      <div class="question-answer" style="margin: 10px">
+        <label style="padding: 15px">
+          <input type="radio" value="5" name="days" />
+          Less than 5 days
+        </label>
+        <label style="padding: 15px">
+          <input type="radio" value="10" name="days" />
+          5-10 days
+        </label>
+        <label style="padding: 15px">
+          <input type="radio" value="15" name="days" />
+          10-15 days
+        </label>
+        <label style="padding: 15px">
+          <input type="radio" value="16" name="days" />
+          More than 15 days
+        </label>
+      </div>
+    </div>
+    <div>
+      <h4>Please select one of the budget range below:</h4>
+      <div class="question-answer" style="margin: 10px">
+        <label style="padding: 15px">
+          <input type="radio" value="500" name="budget_range" />
+          $0 - $500
+        </label>
+        <label style="padding: 15px">
+          <input type="radio" value="1000" name="budget_range" />
+          $500-$1000
+        </label>
+        <label style="padding: 15px">
+          <input type="radio" value="1500" name="budget_range" />
+          $1000- $1500
+        </label>
+        <label style="padding: 15px">
+          <input type="radio" value="2000" name="budget_range" />
+          $1500- $2000
+        </label>
+        <label style="padding: 15px">
+          <input type="radio" value="2001" name="budget_range" />
+          More than $2000
+        </label>
+      </div>
+    </div>
+    <div class="btn-block" style="padding-left: 160px">
+      <button type="submit" href="/">Get Results</button>
+    </div>
+  </form>
+</div>
+{% endblock content %}

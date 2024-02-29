@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Import Trek Data</title>
+  </head>
+  <body>
+    <h2>Import Trek Data</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Upload CSV</button>
+    </form>
+    <br />
+    {% if messages %} {% for message in messages %}
+    <div>{{ message }}</div>
+    {% endfor %} {% endif %}
+  </body>
+</html>

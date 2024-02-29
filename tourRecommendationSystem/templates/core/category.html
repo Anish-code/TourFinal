@@ -1,0 +1,28 @@
+{% extends "partials/base.html" %} {% load static %} {% block content %}
+<div class="row">
+  {% for c in categories %}
+  <div class="col-lg-4 col-md-6">
+    <div
+      class="single_explore mt-30 wow fadeIn"
+      data-wow-duration="1.3s"
+      data-wow-delay="0.8s"
+      style="
+        visibility: visible;
+        animation-duration: 1.3s;
+        animation-delay: 0.8s;
+        animation-name: fadeIn;
+      "
+    >
+      <div class="explore_image">
+        <img src="{{c.image.url}}" alt="Category" />
+      </div>
+      <div class="explore_content">
+        <a class="main-btn" href="{% url 'core:tour-category' %}">Read more</a>
+        <h4 class="title"><a>{{c.title}}</a></h4>
+        <p class="price">{{c.description | truncatewords:"30"}}</p>
+        <a class="more"><i class="lni lni-chevron-right"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock content %}

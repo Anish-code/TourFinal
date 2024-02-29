@@ -1,0 +1,229 @@
+{% extends "partials/base.html" %} {% load static %} {% block content %}
+<section class="header-area">
+  <div id="home" class="header_slider">
+    <div class="single_slider bg_cover d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-8">
+            <div class="slider_content">
+              <h2
+                class="slider_title wow fadeInLeftBig"
+                data-wow-duration="1.3s"
+                data-wow-delay="0.2s"
+              >
+                Services that we offers to <span> Yatris</span>
+              </h2>
+              <p
+                class="wow fadeInLeftBig"
+                data-wow-duration="1.3s"
+                data-wow-delay="0.5s"
+              >
+                Get All the services that you need for your travel...
+              </p>
+            </div>
+            <!-- slider content -->
+          </div>
+        </div>
+        <!-- row -->
+      </div>
+      <!-- container -->
+    </div>
+    <!-- single slider -->
+  </div>
+  <!-- header slider -->
+</section>
+<section id="services" class="services_area pt-120">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="section_title text-center pb-25">
+          <h3 class="title">Services We Provide</h3>
+          <br />
+          <p>
+            we offer personalized travel suggestions, plan itineraries, and
+            provide real-time information on accommodations, attractions, and
+            activities, tailoring the travel experience to your preferences.
+          </p>
+        </div>
+        <!-- section title -->
+      </div>
+    </div>
+    <!-- row -->
+    <div class="row">
+      <div class="col-lg-3 col-sm-6">
+        <div
+          class="single_service mt-30 text-center wow fadeInUpBig"
+          data-wow-duration="1.3s"
+          data-wow-delay="0.2s"
+          id="find-places-link"
+        >
+          <div class="services_icon">
+            <i class="lni lni-apartment"></i>
+          </div>
+          <div class="services_content">
+            <h4 class="title">Nearby Hotels</h4>
+            <p>Get the information about the hotels near the destinations.</p>
+          </div>
+        </div>
+        <!-- single service -->
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div
+          class="single_service mt-30 text-center wow fadeInUpBig"
+          data-wow-duration="1.3s"
+          data-wow-delay="0.4s"
+          id="get-directions-link"
+        >
+          <div class="services_icon">
+            <i class="fa-solid fa-map-location-dot"></i>
+          </div>
+          <div class="services_content">
+            <h4 class="title">Guide Map</h4>
+            <p>Get the proper directions to reach the destination.</p>
+          </div>
+        </div>
+        <!-- single service -->
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div
+          class="single_service mt-30 text-center wow fadeInUpBig"
+          data-wow-duration="1.3s"
+          data-wow-delay="0.6s"
+        >
+          <div class="services_icon">
+            <i class="fa-regular fa-calendar-days"></i>
+          </div>
+          <div class="services_content">
+            <h4 class="title">Planner</h4>
+            <p>Get the perfect plan to travel the destination.</p>
+          </div>
+        </div>
+        <!-- single service -->
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div
+          class="single_service mt-30 text-center wow fadeInUpBig"
+          data-wow-duration="1.3s"
+          data-wow-delay="0.8s"
+        >
+          <div class="services_icon">
+            <i class="fa-solid fa-people-group"></i>
+          </div>
+          <div class="services_content">
+            <h4 class="title">Community Reach</h4>
+            <p>
+              Connection between more people with similar interest and get more
+              discussion on travel information.
+            </p>
+          </div>
+        </div>
+        <!-- single service -->
+      </div>
+    </div>
+    <!-- row -->
+  </div>
+  <!-- container -->
+  <div id="map"></div>
+</section>
+<script>
+  // Function to get current location and redirect to Google Maps with directions
+  function getLocationAndRedirect() {
+    // Check if geolocation is supported by the browser
+    if (navigator.geolocation) {
+      // Request permission to access the user's location
+      navigator.permissions
+        .query({ name: "geolocation" })
+        .then(function (permissionStatus) {
+          // If permission is granted or already granted
+          if (permissionStatus.state === "granted") {
+            // Get the current position
+            navigator.geolocation.getCurrentPosition(
+              function (position) {
+                // Extract latitude and longitude from the position object
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                // Construct the Google Maps directions URL with the current location
+                var mapsUrl =
+                  "https://www.google.com/maps/dir/?api=1&destination=";
+                // Prompt the user to enter the destination
+                var destination = prompt("Enter your destination:");
+                // If the user enters a destination
+                if (destination) {
+                  // Encode the destination for URL
+                  var encodedDestination = encodeURIComponent(destination);
+                  // Append the encoded destination to the Google Maps URL
+                  mapsUrl += encodedDestination;
+                  // Append the current location as the starting point
+                  mapsUrl += "&origin=" + latitude + "," + longitude;
+                  // Redirect to the Google Maps URL
+                  window.location.href = mapsUrl;
+                }
+              },
+              function (error) {
+                // Handle errors if any
+                console.error("Error getting geolocation:", error);
+                alert("Error getting your location. Please try again.");
+              }
+            );
+          } else {
+            // Permission not granted, show error message
+            alert(
+              "Permission to access location denied. Please allow access to your location and try again."
+            );
+          }
+        });
+    } else {
+      // Geolocation not supported
+      alert("Geolocation is not supported by your browser.");
+    }
+  }
+
+  // Attach click event listener to the anchor tag
+  document
+    .getElementById("get-directions-link")
+    .addEventListener("click", function (event) {
+      // Prevent the default action of the anchor tag
+      event.preventDefault();
+      // Call the function to get location and redirect to Google Maps with directions
+      getLocationAndRedirect();
+    });
+  // Function to get current location and redirect to Google Maps with nearby places
+  function getLocationAndFindPlaces() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          var latitude = position.coords.latitude;
+          var longitude = position.coords.longitude;
+          var mapsUrl =
+            "https://www.google.com/maps/search/" +
+            "Hotels+OR+Cafes+OR+Restaurants+OR+Resorts/@" +
+            latitude +
+            "," +
+            longitude +
+            ",15z/data=!3m1!4b1";
+          // Redirect to the Google Maps URL
+          window.location.href = mapsUrl;
+        },
+        function (error) {
+          // Handle errors if any
+          console.error("Error getting geolocation:", error);
+          alert("Error getting your location. Please try again.");
+        }
+      );
+    } else {
+      // Geolocation not supported
+      alert("Geolocation is not supported by your browser.");
+    }
+  }
+
+  // Attach click event listener to the anchor tag
+  document
+    .getElementById("find-places-link")
+    .addEventListener("click", function (event) {
+      // Prevent the default action of the anchor tag
+      event.preventDefault();
+      // Call the function to get location and find nearby places
+      getLocationAndFindPlaces();
+    });
+</script>
+{%endblock content %}

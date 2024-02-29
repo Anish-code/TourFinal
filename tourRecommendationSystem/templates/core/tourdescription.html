@@ -1,0 +1,25 @@
+{% extends "partials/base.html" %} {% load static %} {% block content %}
+
+<div class="blog-post">
+  <div class="blog-hero"></div>
+  <article>
+    <div class="blog-content">
+      <summary>
+        <h3>{{t.title}}</h3>
+        <div class="blog-date">{{t.date}}</div>
+      </summary>
+      <p>{{t.description | safe}}</p>
+    </div>
+    <div class="blog-img">
+      <div class="blog-img-caption">
+        <b>Pictured Some Cool</b>
+        {%for t in t_image %}
+        <div class="col-lg-4 col-md-6">
+          <img src="{{t.images.url}}" />
+        </div>
+        {%endfor%}
+      </div>
+    </div>
+  </article>
+</div>
+{% endblock content %}

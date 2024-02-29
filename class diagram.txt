@@ -1,0 +1,126 @@
++----------------------------------------+
+|   Tour Recommendation System (User-Based Content Filtering)  |
++----------------------------------------+
+| - users: List<User>                     |
+| - tours: List<Tour>                     |
+| - userTourPreferences: Map<User, List<Tour>> |
+| - similarityCalculator: SimilarityCalculator |
+| - bookingHistory: Map<User, List<Booking>> |
+| - reviews: Map<Tour, List<Review>>       |
+| - paymentProcessor: PaymentProcessor    |
+| - notificationService: NotificationService |
++----------------------------------------+
+
++------------------------------------+
+|                 User               |
++------------------------------------+
+| - userId: int                       |
+| - username: String                  |
+| - password: String                  |
+| - email: String                     |
+| - preferences: Preferences          |
+| + login()                          |
+| + logout()                         |
+| + updatePreferences(preferences: Preferences): void |
+| + receiveRecommendations(): List<Tour> |
+| + bookTour(tour: Tour): Booking     |
+| + writeReview(tour: Tour, review: Review): void |
+| + makePayment(booking: Booking): void |
+| + receiveNotification(message: String): void |
++------------------------------------+
+
++------------------------------------+
+|            Preferences              |
++------------------------------------+
+| - location: String                  |
+| - budget: double                    |
+| - duration: int                     |
+| - interests: List<String>           |
++------------------------------------+
+
++----------------------------------------+
+|            SimilarityCalculator         |
++----------------------------------------+
+| + calculateSimilarity(user1: User, user2: User): double |
++----------------------------------------+
+
++------------------------------------+
+|                Tour                |
++------------------------------------+
+| - tourId: int                       |
+| - name: String                      |
+| - description: String               |
+| - startDate: Date                   |
+| - endDate: Date                     |
+| - price: double                     |
+| - capacity: int                     |
+| - location: String                  |
+| - guide: Guide                      |
+| + getAvailableSeats(): int          |
+| + isAvailable(): boolean            |
+| + displayDetails(): String          |
+| + getAverageRating(): double        |
+| + getTourSchedule(): List<Date>     |
++------------------------------------+
+
++------------------------------------+
+|              Booking               |
++------------------------------------+
+| - bookingId: int                    |
+| - user: User                        |
+| - tour: Tour                        |
+| - bookingDate: Date                 |
+| - status: BookingStatus             |
+| + getTotalPrice(): double           |
+| + cancelBooking(): void             |
+| + getBookingStatus(): BookingStatus |
++------------------------------------+
+
++------------------------------------+
+|          PaymentProcessor           |
++------------------------------------+
+| + processPayment(amount: double): PaymentConfirmation |
++------------------------------------+
+
++------------------------------------+
+|        NotificationService         |
++------------------------------------+
+| + sendNotification(user: User, message: String): void |
++------------------------------------+
+
++------------------------------------+
+|              Guide                |
++------------------------------------+
+| - guideId: int                      |
+| - name: String                      |
+| - experience: int                   |
+| - language: String                  |
+| + provideGuidance(): String         |
++------------------------------------+
+
++------------------------------------+
+|              Review                |
++------------------------------------+
+| - reviewId: int                     |
+| - user: User                        |
+| - tour: Tour                        |
+| - rating: int                       |
+| - comment: String                   |
++------------------------------------+
+
++------------------------------------+
+|         PaymentConfirmation         |
++------------------------------------+
+| - confirmationId: int                |
+| - paymentDate: Date                 |
+| - amount: double                    |
+| - transactionId: String             |
++------------------------------------+
+
++------------------------------------+
+|          BookingStatus             |
++------------------------------------+
+| - PENDING                           |
+| - CONFIRMED                         |
+| - CANCELED                          |
++------------------------------------+
