@@ -1,93 +1,120 @@
 {% extends "partials/base.html" %} {% load static %} {% block content %}
 
-<div
-  class="testbox"
-  style="
-    margin-top: 80px;
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    padding-left: 286px;
-    margin-bottom: 20px;
-  "
->
-  <form action="/" method="POST">
-    {% csrf_token %}
-    <h3 style="color: burlywood">Some Questions that may help to recommend</h3>
-    <div>
-      <h4 style="margin-top: 10px">Which Type of trip do you want?</h4>
-      <div class="question-answer" style="margin: 10px">
-        <label style="padding: 15px">
-          <input type="radio" value="moderate" name="trip_type" />
-          Moderate
-        </label>
-        <label style="padding: 15px">
-          <input type="radio" value="demanding" name="trip_type" />
-          Demanding
-        </label>
-        <label style="padding: 15px">
-          <input type="radio" value="easy" name="trip_type" />
-          Easy
-        </label>
-        <label style="padding: 15px">
-          <input type="radio" value="strenous" name="trip_type" />
-          Strenous
-        </label>
-        <label style="padding: 15px">
-          <input type="radio" value="random" name="trip_type" />
-          Random
-        </label>
-      </div>
-    </div>
-    <div>
-      <h4>How many days can you spend</h4>
-      <div class="question-answer" style="margin: 10px">
-        <label style="padding: 15px">
-          <input type="radio" value="5" name="days" />
-          Less than 5 days
-        </label>
-        <label style="padding: 15px">
-          <input type="radio" value="10" name="days" />
-          5-10 days
-        </label>
-        <label style="padding: 15px">
-          <input type="radio" value="15" name="days" />
-          10-15 days
-        </label>
-        <label style="padding: 15px">
-          <input type="radio" value="16" name="days" />
-          More than 15 days
-        </label>
-      </div>
-    </div>
-    <div>
-      <h4>Please select one of the budget range below:</h4>
-      <div class="question-answer" style="margin: 10px">
-        <label style="padding: 15px">
-          <input type="radio" value="500" name="budget_range" />
-          $0 - $500
-        </label>
-        <label style="padding: 15px">
-          <input type="radio" value="1000" name="budget_range" />
-          $500-$1000
-        </label>
-        <label style="padding: 15px">
-          <input type="radio" value="1500" name="budget_range" />
-          $1000- $1500
-        </label>
-        <label style="padding: 15px">
-          <input type="radio" value="2000" name="budget_range" />
-          $1500- $2000
-        </label>
-        <label style="padding: 15px">
-          <input type="radio" value="2001" name="budget_range" />
-          More than $2000
-        </label>
-      </div>
-    </div>
-    <div class="btn-block" style="padding-left: 160px">
-      <button type="submit" href="/">Get Results</button>
-    </div>
-  </form>
+<h1>Get Recommendations</h1>
+<!-- getrecommendation.html -->
+
+<form id="recommendationsForm" style="padding: 40px">
+  <label for="location" style="font-size: 50px"
+    >Select Location for getting recommendation :</label
+  ><br />
+  <select
+    id="location"
+    name="location"
+    required
+    style="
+      width: 53rem;
+      border-radius: 17px;
+      font-size: 28px;
+      background: darkgray;
+      padding: 9px;
+      margin-top: 10px;
+    "
+  >
+    {% for location in locations %}
+    <option value="{{location.ID}}">{{location.location}}</option>
+    {% endfor %}
+    <!-- Dropdown options will be dynamically populated here -->
+  </select>
+  <br />
+  <button type="submit">Get Recommendations</button>
+</form>
+<div id="recommendationsContainer">
+  <!-- Recommendations will be displayed here -->
 </div>
+<script>
+  fetch("tourdatas.csv")
+    .then((response) => response.text())
+    .then((data) => {
+      // Split CSV data into array of lines
+      const lines = data.split("\n");
+      // Remove header line
+      const header = lines.shift();
+      // Get index of 'location' column
+      const locationIndex = header.split(",").indexOf("location");
+      // Extract unique locations
+      const locations = new Set();
+      lines.forEach((line) => {
+        // Split each line into fields
+        const fields = line.split(",");
+        // Add location to set
+        locations.add(fields[locationIndex].trim());
+      });
+      // Populate dropdown options
+      const dropdown = document.getElementById("location");
+      locations.forEach((location) => {
+        // Create option element
+        const option = document.createElement("option");
+        option.value = location;
+        option.textContent = location;
+        // Append option to dropdown
+        dropdown.appendChild(option);
+      });
+    })
+    .catch((error) => console.error("Error fetching CSV:", error));
+  document
+    .getElementById("recommendationsForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      var itemId = document.getElementById("location").value;
+      getRecommendations(itemId);
+    });
+
+  function getRecommendations(itemId) {
+    fetch(`/get_recommendation/${itemId}/`)
+      .then((response) => response.json())
+      .then((data) => {
+        displayRecommendations(data.recommendations);
+      })
+      .catch((error) => console.error("Error:", error));
+  }
+
+  function displayRecommendations(recommendations) {
+    var recommendationsContainer = document.getElementById(
+      "recommendationsContainer"
+    );
+    recommendations = JSON.parse(recommendations);
+    recommendationsContainer.innerHTML = "<h2>Recommendations:</h2>";
+    var ul = document.createElement("div");
+    ul.classList = "row";
+    console.log(recommendations);
+    recommendations.forEach(function (recommendation) {
+      ul.innerHTML += `<div class="col-lg-4 col-md-6">
+        <div
+          class="single_explore mt-30 wow fadeIn"
+          data-wow-duration="1.3s"
+          data-wow-delay="0.8s"
+          style="
+            visibility: visible;
+            animation-duration: 1.3s;
+            animation-delay: 0.8s;
+            animation-name: fadeIn;
+          "
+        >
+          <div class="explore_image">
+            <img src="${recommendation["image1"]}" alt="NEPAL" />
+          </div>
+          <div class="explore_content">
+            <a class="main-btn">Get Details</a>
+            <h4 class="title"><a>${recommendation["location"]}</a></h4>
+          </div>
+        </div>
+      </div>
+      `;
+
+      //ul.appendChild(h1);
+      //ul.appendChild(img);
+    });
+    recommendationsContainer.appendChild(ul);
+  }
+</script>
 {% endblock content %}

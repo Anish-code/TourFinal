@@ -1,4 +1,4 @@
-{% extends "partials/base.html" %} {% load static %} {% block content %}
+{% extends "partials/base.html" %} {% block content %}
 <section
   id="packges"
   class="explore_area pt-130 pb-130"
@@ -14,33 +14,33 @@
   </div>
   <!-- section title -->
   <div class="row">
-    {% for t in Tour %}
+    {% for item in tourdata %}
     <div class="col-lg-4 col-md-6">
       <div
         class="single_explore mt-30 wow fadeIn"
         data-wow-duration="1.3s"
         data-wow-delay="0.8s"
-        style="
-          visibility: visible;
-          animation-duration: 1.3s;
-          animation-delay: 0.8s;
-          animation-name: fadeIn;
-        "
       >
         <div class="explore_image">
-          <img src="{{t.image}}" alt="Tour" />
+          <img src="{{ item.image1 }}" alt="{{ item.location }}" />
         </div>
         <div class="explore_content">
-          <a class="main-btn" href="{%url 'core-tourdescription' t.tid %}"
+          {% comment %} <a class="main-btn" href="{% url 'core-tourdescription' item.ID %}"
             >Know more</a
-          >
-          <h4 class="title"><a>{{t.title}}</a></h4>
-          <p class="price">{{t.description| truncatewords:"30" }}</p>
-          <a class="more"><i class="lni lni-chevron-right"></i></a>
+          > {% endcomment %}
+          <a class="main-btn" href=""
+          >Know more</a
+        >
+
+          <h4 class="title"><a>{{ item.location }}</a></h4>
+          <p class="price">Total Reviews: {{ item.total_review }}</p>
+          <a class="more" href=""
+            ><i class="lni lni-chevron-right"></i
+          ></a>
         </div>
       </div>
     </div>
     {% endfor %}
   </div>
 </section>
-{%endblock content%}
+{% endblock content %}

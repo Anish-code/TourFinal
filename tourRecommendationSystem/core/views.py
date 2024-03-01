@@ -5,13 +5,15 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.conf import settings
 from django.contrib import messages
+import pandas as pd
+from core.recommendationform import LocationForm
 from django.template.loader import render_to_string
-
-from django.urls import reverse
-from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from core.models import Tour, TourImages, TourReview, Trek
+from core.hybridRecommendation import ContentBasedModel, CollaborativeFilteringModel, HybridRecommendationSystem
+from django.http import JsonResponse
+
 
 def index(request):
     tourfeatured = Tour.objects.filter(featured= True).order_by("-id")
@@ -20,13 +22,20 @@ def index(request):
     }
     return render(request, 'core/index.html', context)
 
-def tour_list_view(request):
-    tours=Tour.objects.all().order_by("-id")
-    context = {
-        "tours": tours,
-    }
-    return render(request,'core/explore.html',context)
+# def tour_list_view(request):
+#     tours=Tour.objects.all().order_by("-id")
+#     context = {
+#         "tours": tours,
+#     }
+#     return render(request,'core/explore.html',context)
 
+
+def tourdata(request):
+    tourdata = tourdata
+    context ={
+        "tourdata": tourdata,
+    }
+    return render(request, 'core/explore.html', context)
 
 def tour_detail_view(request,tid):
     tour = Tour.objects.get(tid=tid)
@@ -52,6 +61,17 @@ def tour_detail_view(request,tid):
     }
 
     return render(request,"core/tour-detail.html",context)
+
+def explore_destinations(request):
+    # Assuming you have a CSV file named 'tourdata.csv' in your project directory
+    csv_file = 'tourdata.csv'
+    tourdata = []
+    with open(csv_file, 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            tourdata.append(row)
+    
+    return render(request, 'explore_destinations.html', {'tourdata': tourdata})
 
 def ajax_add_review(request,pid):
     tour = Tour.objects.get(tid=tid)
@@ -85,10 +105,19 @@ def services(request):
     return render(request, 'core/services.html')
 
 def getrecommendation(request):
-    return render(request, 'core/getrecommendation.html')
+    df = pd.read_csv('../tourdatas.csv')
+    unique_df = df.drop_duplicates(subset=['location'])
+
+    locations = unique_df[['ID', 'location']].to_dict(orient='records')
+    return render(request, 'core/getrecommendation.html', {"locations": locations})
 
 def explore(request):
-    return render(request, 'core/explore.html')
+    df = pd.read_csv('../tourdatas.csv')
+    unique_df = df.drop_duplicates(subset=['location'])
+
+    tourdata = unique_df.to_dict(orient='records')
+    print(tourdata)
+    return render(request, 'core/explore.html', {"tourdata":tourdata})
 
 def gallery(request):
     return render(request, 'core/gallery.html')
@@ -140,32 +169,43 @@ def import_trek_data(request):
     return render(request, 'import_trek_data.html', {'form': form})
 
 
-
-def tour_data(request):
-    if request.method == 'POST':
-        # Retrieve the selected values from the form
-        trip_type = request.POST.get('trip_type')
-        duration = request.POST.get('duration')
-        budget_range = request.POST.get('budget_range')
-
-    return render(request, 'core/getrecommendation.html')
-
-
 def recommendation_view(request):
-    # Assuming 'item_id' is passed as a parameter in the request or retrieved from the database
-    item_id = request.GET.get('item_id')  # Adjust this according to your application logic
-
-    # Initialize the hybrid recommendation system with your models
+    item_id = request.GET.get('item_id')  
     hybrid_system = HybridRecommendationSystem(content_based_model, collaborative_filtering_model)
 
-    # Get recommendations for the specified item
-    num_recommendations = 10  # Adjust as needed
+    num_recommendations = 10  
     recommendations = hybrid_system.recommend(item_id, num_recommendations)
 
-    # Pass the recommendations to the template context
     context = {
         'recommendations': recommendations,
     }
 
-    # Render the template with recommendations
     return render(request, 'recommendation_template.html', context)
+
+
+def button_clicked(request):
+    if request.method == 'POST':
+        form = LocationForm(request.POST)
+        if form.is_valid():
+            selected_id = form.cleaned_data['locations']
+            return HttpResponse("Button clicked: " + selected_id)
+    else:
+        form = LocationForm()
+    return render(request, 'core/button_template.html', {'form': form})
+
+
+def get_recommendations(request, item_id):
+    if item_id:
+        df = pd.read_csv('../tourdatas.csv')
+
+        content_based_model = ContentBasedModel(df)
+        collaborative_filtering_model = CollaborativeFilteringModel(df)
+
+        num_recommendations = 10
+        hybrid_system = HybridRecommendationSystem(content_based_model, collaborative_filtering_model)
+        recommendations = hybrid_system.recommend(item_id, num_recommendations)
+        recommendation_json = df[df["ID"].isin(recommendations)].to_json(orient="records")
+    
+        return JsonResponse({'recommendations': recommendation_json})
+    else:
+        return JsonResponse({'error': 'item_id parameter is missing'})

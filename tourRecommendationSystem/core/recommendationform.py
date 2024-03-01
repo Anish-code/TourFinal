@@ -1,24 +1,15 @@
 from django import forms
-from core.models import  Tour
+import csv
+import pandas as pd
 
 
-class RecommendForm(UserCreationForm):
-    category = forms.CharField(widget= forms.TextInput(attrs={"placeholder":"Enter Your Type of destination"}))
-    duration = forms.CharField(widget = forms.TextInput(attrs={"placeholder":"How many Days can you spend?"}))
-    cost = forms.CharField(widget = forms.TextInput(attrs= {"placeholder":"Enter your estimated budget"}))
-    tripGrade = forms.CharField(widget= forms.TextInput(attrs={"placeholder":"Enter the Trip Grade "}))
+class LocationForm(forms.Form):
+    locations = forms.ChoiceField(choices=[])
 
-    
-    class Meta:
-        
-        model = Tour
-        fields = ['category', 'duration', 'cost', 'tripGrade']
-        
+    def __init__(self, *args, **kwargs):
+        super(LocationForm, self).__init__(*args, **kwargs)
+        df = pd.read_csv('tourdatas.csv')
 
-
-
-
-		
-		
-
-
+        reader = csv.DictReader(df)
+        choices = [(row['location'], row['ID']) for row in reader]
+        self.fields['locations'].choices = [('', 'Select Location')] + choices

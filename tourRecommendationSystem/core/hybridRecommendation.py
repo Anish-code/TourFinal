@@ -3,6 +3,8 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy.sparse import csr_matrix
+import os;
+
 
 class ContentBasedModel:
     def __init__(self, df):
@@ -16,11 +18,6 @@ class ContentBasedModel:
 
     def recommend(self, item_id, num_recommendations):
         item_idx = self.df.index[self.df['ID'] == item_id].tolist()[0]
-        # item_idx_list = self.df.index[self.df['ID'] == item_id].tolist()
-        # if item_idx_list:
-        #     item_idx = item_idx_list[0]
-        # else:
-        #     print(f"No rows found for item ID: {item_id}")
         item_profile = self.tf_idf_matrix[item_idx]
         cosine_similarities = cosine_similarity(item_profile, self.tf_idf_matrix).flatten()
         related_item_indices = cosine_similarities.argsort()[::-1][1:num_recommendations+1]
@@ -57,7 +54,8 @@ class HybridRecommendationSystem:
         return final_recommendations[:num_recommendations]
 
 # Load dataset from CSV
-df = pd.read_csv('tourdatas.csv')
+
+df = pd.read_csv('../tourdatas.csv')
 
 # Initialize content-based and collaborative filtering models
 content_based_model = ContentBasedModel(df)
@@ -67,17 +65,17 @@ collaborative_filtering_model = CollaborativeFilteringModel(df)
 hybrid_system = HybridRecommendationSystem(content_based_model, collaborative_filtering_model)
 
 # Get recommendations for an item
-item_id = df['ID'].iloc[8]
-num_recommendations = 10
-recommendations = hybrid_system.recommend(item_id, num_recommendations)
-for r in recommendations:
-    search_id = r  # Change this to the ID you want to search for
+# item_id = df['ID'].iloc[6]
+# num_recommendations = 10
+# recommendations = hybrid_system.recommend(item_id, num_recommendations)
+# for r in recommendations:
+#     search_id = r  # Change this to the ID you want to search for
 
-# Filter the DataFrame to get the row with the given ID
-    filtered_row = df[df['ID'] == search_id]
+# # Filter the DataFrame to get the row with the given ID
+#     filtered_row = df[df['ID'] == search_id]
 
-# Extract the name from the filtered row
-    name = filtered_row['location'].iloc[0]  # Assuming 'location' is the column containing names
+# # Extract the name from the filtered row
+#     name = filtered_row['location'].iloc[0]  # Assuming 'location' is the column containing names
 
-    print("Name associated with ID", search_id, ":", name)
-print("Recommendations:", recommendations)
+#     print("Name associated with ID", search_id, ":", name)
+# print("Recommendations:", recommendations)

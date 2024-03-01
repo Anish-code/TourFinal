@@ -421,7 +421,7 @@ p {
   position: relative;
   overflow: hidden;
   border-bottom-left-radius: 250px;
-  background-image: url(../images/nepal.gif);
+  background-image: url(../images/rara.jpg);
 }
 
 .single_slider::before {
@@ -1113,12 +1113,13 @@ button {
   border: 1px solid #ff4b2b;
   background: #ff445c;
   color: #fff;
-  font-size: 12px;
+  font-size: 20px;
   font-weight: bold;
-  padding: 12px 45px;
+  padding: 10px 47px;
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
+  margin-top: 20px;
 }
 
 button:active {

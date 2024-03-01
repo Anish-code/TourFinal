@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Button Example</title>
+  </head>
+  <body>
+    <h1>Select a Location</h1>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Get ID</button>
+    </form>
+  </body>
+</html>

@@ -5,19 +5,11 @@ from userauths.models import User
 
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"username"}))
-    email = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder":"Email"}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder":"password"}))
-
+    email = forms.CharField(widget=forms.EmailInput(attrs={"placeholder":"Email"}))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder":"password"}))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder":"Confirm password"}))
     
     class Meta:
         
         model = User
-        fields = ['username', 'email', 'password']
-
-
-
-
-		
-		
-
-
+        fields = ['username', 'email']

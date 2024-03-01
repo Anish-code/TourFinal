@@ -1,0 +1,55 @@
+{% extends "partials/base.html" %} {% load static %} {% block content %}
+
+<h1>Get Recommendations</h1>
+<form id="recommendationsForm">
+  <label for="item_id">Enter Item ID:</label>
+  <input type="text" id="item_id" name="item_id" required />
+  <button type="submit">Get Recommendations</button>
+</form>
+
+<div id="recommendationsContainer">
+  <!-- Recommendations will be displayed here -->
+</div>
+
+<script>
+  document
+    .getElementById("recommendationsForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      var itemId = document.getElementById("item_id").value;
+      getRecommendations(itemId);
+    });
+
+  function getRecommendations(itemId) {
+    fetch(`/get_recommendations/?item_id=${itemId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        displayRecommendations(data.recommendations);
+      })
+      .catch((error) => console.error("Error:", error));
+  }
+
+  function displayRecommendations(recommendations) {
+    var recommendationsContainer = document.getElementById(
+      "recommendationsContainer"
+    );
+    recommendationsContainer.innerHTML = "<h2>Recommendations:</h2>";
+    var ul = document.createElement("ul");
+    recommendations.forEach(function (recommendation) {
+      var li = document.createElement("li");
+      li.textContent = recommendation;
+      ul.appendChild(li);
+    });
+    recommendationsContainer.appendChild(ul);
+  }
+
+  function getRecommendations(itemId) {
+    fetch(`/get_recommendation/${itemId}/`) // Modify URL to include item_id
+      .then((response) => response.json())
+      .then((data) => {
+        displayRecommendations(data.recommendations);
+      })
+      .catch((error) => console.error("Error:", error));
+  }
+</script>
+{% endblock content %}

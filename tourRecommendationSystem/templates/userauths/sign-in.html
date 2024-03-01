@@ -15,7 +15,7 @@
 
   <div class="signcontainer" id="signcontainer">
     <div class="form-container sign-up-container">
-      <form method="POST">
+      <form method="POST" action="{% url 'userauths:sign-in' %}">
         {% csrf_token %}
 
         <h1>Create Account</h1>
@@ -25,17 +25,35 @@
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <span>or use your email for registration</span>
-        {% include 'userauths/formtemplate.html' %}
+        <input
+          type="text"
+          id=""
+          name="type"
+          placeholder=""
+          value="register"
+          style="display: none"
+        />
 
-        {% comment %} {{form.username}} {{form.email}} {{form.password}} {% endcomment %}
+        <input
+          type="text"
+          id="login-email"
+          name="username"
+          placeholder="Username"
+        />
+
+        <input type="email" id="login-email" name="email" placeholder="Email" />
+        <input
+          type="password"
+          id="login-password"
+          name="password"
+          placeholder="Password"
+        />
 
         <button type="submit">Sign Up</button>
       </form>
     </div>
     <div class="form-container sign-in-container">
-      {% comment %} <form action="POST"> {% endcomment %}
-      <form method="POST" action="{% url 'userauths:login' %}">
-
+      <form method="POST" action="{% url 'userauths:sign-in' %}">
         <h1>Sign in</h1>
         <div class="social-container">
           {% csrf_token %}
@@ -44,7 +62,16 @@
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <span>or use your account</span>
-        <input type="email" id="login-email" name="email" placeholder="Email" />
+        <input
+          type="text"
+          id=""
+          name="type"
+          placeholder=""
+          value="login"
+          style="display: none"
+        />
+
+        <input type="email" id="login-email" name="email" placeholder="email" />
         <input
           type="password"
           id="login-password"
@@ -57,11 +84,6 @@
     </div>
     <div class="overlay-container">
       <div class="overlay">
-        <div class="overlay-panel overlay-left">
-          <h1>Welcome Back Yatri!</h1>
-          <p>To keep connected with us please login with your personal info</p>
-          <button class="ghost" id="signIn">Sign In</button>
-        </div>
         <div class="overlay-panel overlay-right">
           <h1>Hello, Yatri!</h1>
           <p>Enter your personal details and start the journey with us</p>
@@ -71,18 +93,5 @@
     </div>
   </div>
 </div>
-<script>
-  const signUpButton = document.getElementById("signUp");
-  const signInButton = document.getElementById("signIn");
-  const signcontainer = document.getElementById("signcontainer");
-
-  signUpButton.addEventListener("click", () =>
-    signcontainer.classList.add("right-panel-active")
-  );
-
-  signInButton.addEventListener("click", () =>
-    signcontainer.classList.remove("right-panel-active")
-  );
-</script>
 
 {% endblock content %}
