@@ -1,0 +1,16 @@
+{% extends "partials/base.html" %} {% block content %}
+
+<h1>Recommendations for {{ city }}</h1>
+
+<div id="recommendationsContainer">
+  {% for recommendation in recommendations %}
+  <div class="recommendation">
+    <h3>{{ recommendation.name }}</h3>
+    <p>{{ recommendation.description }}</p>
+    <p>Rating: {{ recommendation.rating }}</p>
+    <!-- Add more details as needed -->
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

@@ -94,12 +94,12 @@ ol {
   list-style-type: none;
 }
 
-p {
+p { 
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
   color: #747e88;
-  margin: 0px;
+  margin: 15px;
 }
 
 .bg_cover {
@@ -378,16 +378,17 @@ p {
 }
 
 .footer_subscribe .subscribe_form button {
-  height: 40px;
-  width: 40px;
+  height: 51px;
+  width: 20px;
   border: 0;
-  font-size: 28px;
+  font-size: 30px;
   color: #fff;
   background-color: #00def4;
-  border-radius: 5px;
+  border-radius: 23px;
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 5px;
+  top: 5px;
+  margin-top: 0px;
 }
 
 /*===== BACK TO TOP =====*/
@@ -424,7 +425,7 @@ p {
   background-image: url(../images/rara.jpg);
 }
 
-.single_slider::before {
+/* .single_slider::before {
   position: absolute;
   content: "";
   background-color: rgba(56, 66, 77, 0.24);
@@ -432,7 +433,7 @@ p {
   height: 100%;
   left: 0;
   top: 0;
-}
+} */
 
 .slider_content {
   padding-top: 80px;
@@ -461,7 +462,7 @@ p {
   background: #d5a637;
   border-radius: 30px;
   font-size: 31px;
-  margin: 30px;
+  /* margin: 30px; */
   font-family: cursive;
   color: white;
 }
@@ -474,6 +475,7 @@ p {
 }
 
 .about_image {
+  background-image: url(../images/lol.avif);
   width: 48%;
   height: 100%;
   position: absolute;
@@ -667,7 +669,7 @@ p {
 /*Team Section*/
 
 .team_area {
-  background-color: #f9fafb;
+  background-color: #ffffff;
   margin-top: 50px;
 }
 

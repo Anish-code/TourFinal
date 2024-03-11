@@ -4,12 +4,12 @@
 <!-- getrecommendation.html -->
 
 <form id="recommendationsForm" style="padding: 40px">
-  <label for="location" style="font-size: 50px"
-    >Select Location for getting recommendation :</label
+  <label for="city" style="font-size: 50px"
+    >Select City for getting recommendation :</label
   ><br />
   <select
-    id="location"
-    name="location"
+    id="city"
+    name="city"
     required
     style="
       width: 53rem;
@@ -20,19 +20,19 @@
       margin-top: 10px;
     "
   >
-    {% for location in locations %}
-    <option value="{{location.ID}}">{{location.location}}</option>
+    {% for c in city %}
+    <option value="{{c.ID}}">{{c.city}}</option>
     {% endfor %}
     <!-- Dropdown options will be dynamically populated here -->
   </select>
   <br />
   <button type="submit">Get Recommendations</button>
 </form>
-<div id="recommendationsContainer">
+<div id="recommendationsContainer" class="recommendationsContainer">
   <!-- Recommendations will be displayed here -->
 </div>
 <script>
-  fetch("tourdatas.csv")
+  fetch("complete_data.csv")
     .then((response) => response.text())
     .then((data) => {
       // Split CSV data into array of lines
@@ -40,22 +40,22 @@
       // Remove header line
       const header = lines.shift();
       // Get index of 'location' column
-      const locationIndex = header.split(",").indexOf("location");
+      const cityIndex = header.split(",").indexOf("city");
       // Extract unique locations
-      const locations = new Set();
+      const city = new Set();
       lines.forEach((line) => {
         // Split each line into fields
         const fields = line.split(",");
         // Add location to set
-        locations.add(fields[locationIndex].trim());
+        city.add(fields[cityIndex].trim());
       });
       // Populate dropdown options
-      const dropdown = document.getElementById("location");
-      locations.forEach((location) => {
+      const dropdown = document.getElementById("city");
+      city.forEach((c) => {
         // Create option element
         const option = document.createElement("option");
-        option.value = location;
-        option.textContent = location;
+        option.value = c;
+        option.textContent = c;
         // Append option to dropdown
         dropdown.appendChild(option);
       });
@@ -65,7 +65,7 @@
     .getElementById("recommendationsForm")
     .addEventListener("submit", function (event) {
       event.preventDefault();
-      var itemId = document.getElementById("location").value;
+      var itemId = document.getElementById("city").value;
       getRecommendations(itemId);
     });
 
@@ -77,44 +77,53 @@
       })
       .catch((error) => console.error("Error:", error));
   }
-
   function displayRecommendations(recommendations) {
     var recommendationsContainer = document.getElementById(
       "recommendationsContainer"
     );
-    recommendations = JSON.parse(recommendations);
     recommendationsContainer.innerHTML = "<h2>Recommendations:</h2>";
-    var ul = document.createElement("div");
-    ul.classList = "row";
-    console.log(recommendations);
-    recommendations.forEach(function (recommendation) {
-      ul.innerHTML += `<div class="col-lg-4 col-md-6">
-        <div
-          class="single_explore mt-30 wow fadeIn"
-          data-wow-duration="1.3s"
-          data-wow-delay="0.8s"
-          style="
-            visibility: visible;
-            animation-duration: 1.3s;
-            animation-delay: 0.8s;
-            animation-name: fadeIn;
-          "
-        >
-          <div class="explore_image">
-            <img src="${recommendation["image1"]}" alt="NEPAL" />
-          </div>
-          <div class="explore_content">
-            <a class="main-btn">Get Details</a>
-            <h4 class="title"><a>${recommendation["location"]}</a></h4>
-          </div>
-        </div>
-      </div>
-      `;
 
-      //ul.appendChild(h1);
-      //ul.appendChild(img);
-    });
-    recommendationsContainer.appendChild(ul);
+    // Create a row div to contain all recommendation items
+    var rowDiv = document.createElement("div");
+    rowDiv.classList = "row";
+
+    try {
+      var parsedRecommendations = JSON.parse(recommendations);
+
+      if (
+        Array.isArray(parsedRecommendations) &&
+        parsedRecommendations.length > 0
+      ) {
+        parsedRecommendations.forEach(function (recommendation) {
+          // Create a column div for each recommendation
+          var itemDiv = document.createElement("div");
+          itemDiv.className = "col-lg-4 col-md-6";
+          itemDiv.innerHTML = `
+                    <div class="single_explore mt-30 wow fadeIn" data-wow-duration="1.3s" data-wow-delay="0.8s" style="visibility: visible; animation-duration: 1.3s; animation-delay: 0.8s; animation-name: fadeIn;">
+                        <div class="explore_image">
+                            <img src="${recommendation.img_url1}" alt="NEPAL" />
+                        </div>
+                        <div class="explore_content">
+                          <a class="main-btn" href="/tour-detail/${recommendation.ID}/">Get Details</a>ss
+                            <h2 class="title"><a>${recommendation.name}</a></h2>
+                            <h6>${recommendation.city}</h6>
+                        </div>
+                    </div>
+                `;
+          rowDiv.appendChild(itemDiv); // Append each recommendation to the row
+        });
+
+        // Append the row containing all recommendations to the container
+        recommendationsContainer.appendChild(rowDiv);
+      } else {
+        recommendationsContainer.innerHTML +=
+          "<p>No recommendations found.</p>";
+      }
+    } catch (error) {
+      console.error("Error parsing recommendations:", error);
+      recommendationsContainer.innerHTML +=
+        "<p>Error parsing recommendations data.</p>";
+    }
   }
 </script>
 {% endblock content %}

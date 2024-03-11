@@ -9,11 +9,19 @@
   {% if form.errors %}
   <div class="alert alert-danger">
     <strong>Error Occurred: </strong>
-    <strong>{{ form.errors }}</strong>
+    <ul>
+      {% for field, error_list in form.errors.items %}
+        {% if field == 'email' %}
+          {% for error in error_list %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    </ul>
   </div>
   {% endif %}
 
-  <div class="signcontainer" id="signcontainer">
+  <div class="signcontainer" id="signcontainer" >
     <div class="form-container sign-up-container">
       <form method="POST">
         {% csrf_token %}
@@ -29,7 +37,7 @@
 
         {% comment %} {{form.username}} {{form.email}} {{form.password}} {% endcomment %}
 
-        <button type="submit">Sign Up</button>
+        <button type="submit" style="margin-bottom: 20px;">Sign Up</button>
       </form>
     </div>
     <div class="form-container sign-in-container">

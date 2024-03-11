@@ -162,7 +162,7 @@
                     <li>
                       <a
                         class="dropdown-item"
-                        href="{% url 'userauths:sign-in' %}"
+                        href="{% url 'userauths:sign-up' %}"
                         >Login</a
                       >
                     </li>
@@ -190,13 +190,13 @@
     <!-- footer slider begins -->
 
     <section id="footer" class="footer_area">
-      <div class="footer_widget pt-80 pb-130">
+      <div class="footer_widget pt-80 pb-130" style="padding-top: 30px">
         <div class="container">
           <div class="row">
             <div class="col-lg-4 col-md-6 order-md-1 order-lg-1">
               <div class="footer_about mt-50">
-                <a href="#"
-                  ><h1>Yatra</h1>
+                <a href="{% url 'core:index' %}"
+                  ><h1 style="color: whitesmoke">Yatra</h1>
                   <!-- <img src="assets/images/logo.svg" alt="logo"> -->
                 </a>
                 <p>

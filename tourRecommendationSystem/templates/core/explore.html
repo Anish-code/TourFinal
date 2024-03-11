@@ -22,21 +22,21 @@
         data-wow-delay="0.8s"
       >
         <div class="explore_image">
-          <img src="{{ item.image1 }}" alt="{{ item.location }}" />
+          <img src="{{ item.img_url1 }}" alt="{{ item.city }}" />
         </div>
         <div class="explore_content">
-          {% comment %} <a class="main-btn" href="{% url 'core-tourdescription' item.ID %}"
+          {% comment %}
+          <a class="main-btn" href="{% url 'core-tourdescription' item.ID %}"
             >Know more</a
-          > {% endcomment %}
-          <a class="main-btn" href=""
-          >Know more</a
-        >
+          >
+          {% endcomment %}
+          <a class="main-btn" href="{% url 'core:tour-detail' item.ID %}"
+            >Know more</a
+          >
 
-          <h4 class="title"><a>{{ item.location }}</a></h4>
-          <p class="price">Total Reviews: {{ item.total_review }}</p>
-          <a class="more" href=""
-            ><i class="lni lni-chevron-right"></i
-          ></a>
+          <h4 class="title"><a>{{ item.name }}</a></h4>
+          <p class="price">{{ item.city }}</p>
+          <a class="more" href=""><i class="lni lni-chevron-right"></i></a>
         </div>
       </div>
     </div>

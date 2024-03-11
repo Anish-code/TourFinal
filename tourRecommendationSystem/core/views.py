@@ -6,13 +6,14 @@ from django.urls import reverse
 from django.conf import settings
 from django.contrib import messages
 import pandas as pd
-from core.recommendationform import LocationForm
+from core.recommendationform import CityForm
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from core.models import Tour, TourImages, TourReview, Trek
 from core.hybridRecommendation import ContentBasedModel, CollaborativeFilteringModel, HybridRecommendationSystem
 from django.http import JsonResponse
+from core.content import Contentbased
 
 
 def index(request):
@@ -105,15 +106,18 @@ def services(request):
     return render(request, 'core/services.html')
 
 def getrecommendation(request):
-    df = pd.read_csv('../tourdatas.csv')
-    unique_df = df.drop_duplicates(subset=['location'])
+    df = pd.read_csv('../complete_data.csv')
 
-    locations = unique_df[['ID', 'location']].to_dict(orient='records')
-    return render(request, 'core/getrecommendation.html', {"locations": locations})
+    # Dropping duplicate entries based on the 'city' column
+    unique_df = df.drop_duplicates(subset=['city'])
 
+    # Extracting city names and IDs as a list of dictionaries
+    city = unique_df[['ID', 'city']].to_dict(orient='records')
+    # Rendering the 'getrecommendation.html' template and passing the city data as context
+    return render(request, 'core/getrecommendation.html', {"city": city})
 def explore(request):
-    df = pd.read_csv('../tourdatas.csv')
-    unique_df = df.drop_duplicates(subset=['location'])
+    df = pd.read_csv('../complete_data.csv')
+    unique_df = df.drop_duplicates(subset=['city'])
 
     tourdata = unique_df.to_dict(orient='records')
     print(tourdata)
@@ -130,58 +134,29 @@ def contact(request):
 def userdashboard(request):
     return render (request, 'core/userdashboard.html')
 
-def import_trek_data(request):
-    if request.method == 'POST':
-        form = TrekImportForm(request.POST, request.FILES)
-        if form.is_valid():
-            csv_file = request.FILES['csv_file']
-            if not csv_file.name.endswith('.csv'):
-                messages.error(request, 'Please upload a valid CSV file.')
-                return redirect('import_trek_data')
-            
-            # Process the CSV file
-            try:
-                decoded_file = csv_file.read().decode('utf-8').splitlines()
-                csv_data = csv.reader(decoded_file)
-                
-                # Skip the header row
-                next(csv_data)
-                
-                for row in csv_data:
-                    trek = Trek.objects.create(
-                        trek=row[0],
-                        cost=row[1],
-                        time=row[2],
-                        trip_grade=row[3],
-                        max_altitude=row[4],
-                        accommodation=row[5],
-                        best_travel_time=row[6],
-                        contact=row[7]
-                    )
-                messages.success(request, 'Trek data imported successfully.')
-            except Exception as e:
-                messages.error(request, f'An error occurred: {e}')
-            
-            return redirect('import_trek_data')
-    else:
-        form = TrekImportForm()
-    
-    return render(request, 'import_trek_data.html', {'form': form})
+
+# def recommendation_view(request):
+#     item_id = request.GET.get('item_id')  
+#     hybrid_system = HybridRecommendationSystem(content_based_model, collaborative_filtering_model)
+
+#     num_recommendations = 10  
+#     recommendations = hybrid_system.recommend(item_id, num_recommendations)
+
+#     context = {
+#         'recommendations': recommendations,
+#     }
+
+#     return render(request, 'recommendation_template.html', context)
 
 
-def recommendation_view(request):
-    item_id = request.GET.get('item_id')  
-    hybrid_system = HybridRecommendationSystem(content_based_model, collaborative_filtering_model)
-
-    num_recommendations = 10  
-    recommendations = hybrid_system.recommend(item_id, num_recommendations)
-
-    context = {
-        'recommendations': recommendations,
-    }
-
-    return render(request, 'recommendation_template.html', context)
-
+# def contentbasedrecommendation_view(request):
+#     city= request.GET.get('city')
+#     contentbased= Contentbased('../Required_data.csv')
+#     recommendation= contentbased.get_recommendations(city)
+#     context = {
+#         'recommendation':recommendation,
+#     }
+#     return render(request,'recommendation_template.html', context)
 
 def button_clicked(request):
     if request.method == 'POST':
@@ -194,18 +169,105 @@ def button_clicked(request):
     return render(request, 'core/button_template.html', {'form': form})
 
 
+# def get_recommendations(request, city):
+#     if item_id:
+#         df = pd.read_csv('../Requires_data.csv')
+#         contentbased= Contentbased(df)
+#         recommendation= contentbased.get_recommendations(city)
+#         recommendation_json = df[df["city"].isin(recommendation)].to_json(orient="records")
+#         # recommendation_json = df[df["city"].isin(recommendation)].to_json(orient="records")
+
+    
+#         return JsonResponse({'recommendations': recommendation_json})
+#     else:
+#         return JsonResponse({'error': 'city parameter is missing'})
+def tour_details(request, item_id):
+    if item_id:
+        df = pd.read_csv('../complete_data.csv')
+        item_data = df[df['ID'] == int(item_id)].iloc[0].to_dict()
+        print(item_data)
+        return render(request, 'core/tour-detail.html', {'item': item_data})
+
+
+# def get_recommendations(request, city):
+#     if city:
+        
+#         content_based = Contentbased('complete_data.csv')
+#         recommendations = content_based.get_recommendations(city)
+#         print(recommendations)
+#         recommendation_json = recommendations.to_json(orient="records")
+#         return JsonResponse({'recommendations': recommendation_json})
+#     else:
+#         return JsonResponse({'error': 'city parameter is missing'})
+
+# def content_based_recommendation_view(request):
+#     city = request.GET.get('city')
+#     if city:
+#         content_based = Contentbased('complete_data.csv')
+#         recommendations = content_based.get_recommendations(city)
+#         context = {'recommendations': recommendations.to_dict(orient='records')}
+#         return render(request, 'core:recommendation_template.html', context)
+#     else:
+#         return JsonResponse({'error': 'city parameter is missing'})
+
+
+def get_city_name_from_item_id(item_id):
+    # Read the dataset
+    df = pd.read_csv('../complete_data.csv')
+    
+    # Search for the row where ID matches the given item_id
+    row = df[df['ID'] == item_id]
+    
+    # If the row exists, return the city name from that row
+    if not row.empty:
+        return row.iloc[0]['city']
+    else:
+        return None
+
 def get_recommendations(request, item_id):
     if item_id:
-        df = pd.read_csv('../tourdatas.csv')
+        data_file = '../complete_data.csv'
+        content_based = Contentbased(data_file)
+        
+        # Retrieve city name associated with the item_id
+        city_name = get_city_name_from_item_id(item_id)
+        df = pd.read_csv('../complete_data.csv')
 
-        content_based_model = ContentBasedModel(df)
-        collaborative_filtering_model = CollaborativeFilteringModel(df)
-
-        num_recommendations = 10
-        hybrid_system = HybridRecommendationSystem(content_based_model, collaborative_filtering_model)
-        recommendations = hybrid_system.recommend(item_id, num_recommendations)
-        recommendation_json = df[df["ID"].isin(recommendations)].to_json(orient="records")
+        if city_name:
+            recommendations = content_based.recommend(city_name)
+            
+            if recommendations is not None and not recommendations.empty:
     
-        return JsonResponse({'recommendations': recommendation_json})
+    # Extract IDs from recommendations DataFrame
+                recommendation_ids = recommendations['ID'].tolist()
+
+    
+    # Filter DataFrame based on recommendation IDs
+                recommended_df = df[df["ID"].isin(recommendation_ids)]
+    
+    # Convert filtered DataFrame to JSON
+                recommendation_json = recommended_df.to_json(orient="records")
+                print(recommendation_json)
+    
+                return JsonResponse({'recommendations': recommendation_json})
+
+            else:
+                return JsonResponse({'message': 'No recommendations found for the given city'})
+        else:
+            return JsonResponse({'error': 'City name not found for the given item_id'})
     else:
         return JsonResponse({'error': 'item_id parameter is missing'})
+
+# def get_recommendations(request, item_id):
+#     if item_id:
+#         data_file = '../complete_data.csv'
+#         content_based = Contentbased(data_file)
+#         recommendations = content_based.get_recommendations(item_id)
+#         df = pd.read_csv('../complete_data.csv')
+#         if recommendations is not None:
+#             recommendation_json = df[df["ID"].isin(recommendations)].to_json(orient="records")
+#             return JsonResponse({'recommendations': recommendation_json})
+#         else:
+#             return JsonResponse({'error': 'No recommendations found'})
+#     else:
+#         return JsonResponse({'error': 'item_id parameter is missing'})

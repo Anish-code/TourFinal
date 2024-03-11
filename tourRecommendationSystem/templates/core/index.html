@@ -20,7 +20,7 @@
               >
                 Get Highly Recommendated Tour Plans from the Experts.
               </p>
-              <button class="main-btn" onclick="button ">
+              <button class="main-btn" onclick="redirectToRecommendation()">
                 Get Recommendation
               </button>
             </div>
@@ -40,10 +40,7 @@
 
 <section id="about" class="about_area pt-130 pb-130">
   <div class="about_wrapper">
-    <div
-      class="about_image bg_cover"
-      style="background-image: url(assets/images/pokhara.jpg)"
-    ></div>
+    <div class="about_image bg_cover"></div>
     <!-- about image -->
     <div class="container">
       <div class="row justify-content-end">
@@ -93,7 +90,7 @@
   <!-- about wrapper -->
 </section>
 <!-- End of about Section -->
-
+{% comment %}
 <!-- Explore section -->
 <section id="packges" class="explore_area pt-130 pb-130">
   <div class="section_title text-center pb-25">
@@ -348,9 +345,14 @@
 </section>
 
 <!-- service section ends -->
+{% endcomment %}
 
 <!-- Gallery section start -->
-<section id="gallery" class="gallery_area pt-120 pb-130">
+<section
+  id="gallery"
+  class="gallery_area pt-120 pb-130"
+  style="margin-top: 50px"
+>
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-6">
@@ -367,8 +369,8 @@
     <div class="row">
       <div class="col-lg-5">
         <div class="single_gallery mt-30">
-          <img src="{% static 'assets/images/galary1.webp' %}" alt="gallery" />
-          <a class="image-popup" href="assets/images/galary1.webp"
+          <img src="{% static 'assets/images/gallery1.jpg' %}" alt="gallery" />
+          <a class="image-popup" href="assets/images/gallery1.jpg"
             ><i class="lni lni-plus"></i
           ></a>
         </div>
@@ -378,19 +380,19 @@
           <div class="col-sm-6">
             <div class="single_gallery mt-30">
               <img
-                src="{% static 'assets/images/gallary2.webp' %}"
+                src="{% static 'assets/images/gallery2.jpg' %}"
                 alt="gallery"
               />
-              <a class="image-popup" href="assets/images/gallary2.webp"
+              <a class="image-popup" href="assets/images/gallery2.jpg"
                 ><i class="lni lni-plus"></i
               ></a>
             </div>
             <div class="single_gallery mt-30">
               <img
-                src="{% static 'assets/images/galary3.webp' %}"
+                src="{% static 'assets/images/gallery3.jpg' %}"
                 alt="gallery"
               />
-              <a class="image-popup" href="assets/images/galary3.webp"
+              <a class="image-popup" href="assets/images/gallery3.jpg"
                 ><i class="lni lni-plus"></i
               ></a>
             </div>
@@ -560,6 +562,7 @@
 
 <!-- team section ends -->
 
+{% comment %}
 <!-- Blog Section  -->
 <section id="blog" class="blog_area pt-120 pb-130">
   <div class="container">
@@ -650,19 +653,21 @@
 </section>
 
 <!-- Blog section ends -->
+{% endcomment %}
 
 <!-- Contact Section -->
 
-<section id="contact" class="contact_area pt-120 pb-130">
+<section
+  id="contact"
+  class="contact_area pt-120 pb-130"
+  style="margin-bottom: 20px"
+>
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-6">
         <div class="section_title text-center pb-25">
           <h3 class="title">Get in Touch</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed dianum
-            eirmod tempor invidunt ut labore et dolore magna
-          </p>
+          <p>Lets Connect to get the updates, Announcements, and newsletter</p>
         </div>
         <!-- section title -->
       </div>
@@ -716,5 +721,11 @@
   <!-- container -->
 </section>
 <!-- Contact section ends -->
+<script>
+  function redirectToRecommendation() {
+    // Redirect to the 'getrecommendation' URL
+    window.location.href = "{% url 'core:getrecommendation' %}";
+  }
+</script>
 
 {% endblock content %}
